@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>切换桌面-选项卡</title>
+  <link rel="stylesheet" href="./reset.css">
+  <style>
+    .bg {
+      width: 100%;
+      height: 1000px;
+      /* background: url(./images/0.jpg) no-repeat fixed 80% 80%;
+      background-size: cover; */
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .bg0 {
+      background: url(./images/0.jpg) no-repeat fixed 80% 80%;
+      background-size: cover;
+    }
+
+    .bg1 {
+      background: url(./images/1.jpg) no-repeat fixed 80% 80%;
+      background-size: cover;
+    }
+
+    .bg2 {
+      background: url(./images/2.jpg) no-repeat fixed 80% 80%;
+      background-size: cover;
+    }
+
+    .bg3 {
+      background: url(./images/3.jpg) no-repeat fixed 80% 80%;
+      background-size: cover;
+    }
+
+    .bg4 {
+      background: url(./images/4.jpg) no-repeat fixed 80% 80%;
+      background-size: cover;
+    }
+
+    .bg5 {
+      background: url(./images/5.jpg) no-repeat fixed 80% 80%;
+      background-size: cover;
+    }
+
+    .toggle {
+      position: absolute;
+      top: 0;
+      left: 36px;
+      z-index: 10;
+      cursor: pointer;
+    }
+
+    .nav {
+      width: 100%;
+      height: 140px;
+      /* position: absolute; */
+      top: -140px;
+      transition: top 1s ease;
+      z-index: 9;
+      background: rgba(255, 255, 255, .8);
+    }
+
+    .nav .nav-list {
+      width: 1080px;
+      height: 140px;
+      margin: 0 auto;
+    }
+
+    .nav .nav-list .item {
+      width: 160px;
+      height: 100px;
+      background: #f7f7f7;
+      border-radius: 10px;
+      float: left;
+      margin: 20px 20px 0 0;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .nav .nav-list .item img {
+      width: 160px;
+      height: 100px;
+    }
+
+    .nav .nav-list .item.last {
+      margin-right: 0;
+    }
+
+    .nav .nav-list .item:hover:after {
+      content: '';
+      width: 160px;
+      height: 100px;
+      text-align: center;
+      background: rgba(0, 0, 0, .6);
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 99;
+    }
+
+    .nav .nav-list .item .tips {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 100;
+      width: 30px;
+      height: 30px;
+      background: url(images/tips.png) no-repeat -92px -2px;
+      text-align: center;
+    }
+
+    .slide-fade-enter-active {
+      transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+    }
+
+    .slide-fade-leave-active {
+      transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+    }
+
+    .slide-fade-enter,
+    .slide-fade-leave-to {
+      transform: translateY(-30px);
+      opacity: 0;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="app">
+    <div class="bg" id="bg" :class="classMap[iscleck]"></div>
+
+    <div class="toggle" id="toggle" @click="show = !show">
+      <img src="images/button.png" alt="">
+    </div>
+    <transition name="slide-fade">
+      <div class="nav" id="nav" v-if="show">
+        <ul class="nav-list" id="nav-list">
+          <li class="item" v-for="(item, index) in items.srcImg" :key="index" @click="cleckBox(index)">
+            <div :class="{tips: iscleck === index}"></div>
+            <span :class="{tips: iscleck === index}"></span>
+            <img :src="item" alt="">
+          </li>
+        </ul>
+      </div>
+    </transition>
+  </div>
+
+  <script src="./vue@2.5.17.vue.js"></script>
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        iscleck: 0,
+        items: {
+          srcImg: [
+            './images/0.jpg',
+            './images/1.jpg',
+            './images/2.jpg',
+            './images/3.jpg',
+            './images/4.jpg',
+            './images/5.jpg'
+          ]
+        },
+        classMap: [],
+        show: true
+      },
+      created() {
+        this.classMap = ['bg0', 'bg1', 'bg2', 'bg3', 'bg4', 'bg5']
+      },
+      methods: {
+        cleckBox(index) {
+          console.log(index)
+          this.iscleck = index
+        },
+        toggle() {
+
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
